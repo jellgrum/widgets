@@ -49,3 +49,16 @@ Other:
 - Получить доминатные цвета изображения
 - Построение графов
 - Родовое дерево
+
+API's:
+- Web Share
+- WebAudio
+- Push
+- Service Workers
+- WebUSB
+- Web Bluetooth
+- Screen Orientation
+- Vibration
+- Battery Status
+- Web Speech
+- Contacts
