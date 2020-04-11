@@ -6,19 +6,23 @@ Organize:
 - Todo list
 - Contacts (phone number, skype, telegram, vk, facebook, ...)
 - Calendar
+
 Tools:
 - Calculator (simple/engineer, Javascript, ...)
 - Converter (currency, size, wieght, temp, ...)
 - API Request by url, parameters and headers as JSON Editor, checkboxes [in init app, on widget click, interval]
+
 System:
-- Information by [window.navigator, window.screen, ...]
+- *Information by [window.navigator, window.screen, ...]
 - ? if works without network Geolocation (long, lat)
-Games (multiplayers with bot):
+
+Games:
 - Sudoku
 - Tick-Tack-Toe
 - Snake ?
 - Match 3
 - Sea Battle
+
 Editor:
 - JSON
 - Markdown with View
@@ -26,6 +30,7 @@ Editor:
 - Brainfuck (compiler)
 - SVG with View
 - HTML with View
+
 Other:
 - Visualize sorts
 - Validator (numbers, string, email, etc)
