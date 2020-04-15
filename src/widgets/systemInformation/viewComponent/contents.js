@@ -3,6 +3,7 @@ import { TYPES } from '../common'
 
 const ENABLED = 'Enabled'
 const DISABLED = 'Disabled'
+const getBoolStatus = status => status ? ENABLED : DISABLED
 
 const getBaseBrowserData = () => {
   let {
@@ -69,7 +70,8 @@ export default {
   [TYPES.LANGUAGE]: navigator.language,
   [TYPES.OPERATING_SYSTEM]: getOperatingSystem(),
   [TYPES.SCREEN_RESOLUTION]: `${window.screen.width}x${window.screen.height}`,
-  [TYPES.JAVA]: navigator.javaEnabled() ? ENABLED : DISABLED,
-  [TYPES.COOKIE]: navigator.cookieEnabled ? ENABLED : DISABLED,
+  [TYPES.JAVA]: getBoolStatus(navigator.javaEnabled()),
+  [TYPES.COOKIE]: getBoolStatus(navigator.cookieEnabled),
   [TYPES.TIMEZONE]: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  [TYPES.ONLINE]: navigator.onLine ? 'online' : 'offline',
 }

@@ -46,6 +46,12 @@ const timezone = {
   disabled: isNil(Intl),
 }
 
+const online = {
+  name: 'Online',
+  type: TYPES.ONLINE,
+  disabled: isNil(navigator.onLine),
+}
+
 export default [
   browser,
   language,
@@ -54,4 +60,5 @@ export default [
   enabledJava,
   enabledCookie,
   timezone,
+  online,
 ]
