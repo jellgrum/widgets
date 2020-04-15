@@ -12,10 +12,6 @@ Tools:
 - Converter (currency, size, wieght, temp, ...)
 - API Request by url, parameters and headers as JSON Editor, checkboxes [in init app, on widget click, interval]
 
-System:
-- *Information by [window.navigator, window.screen, ...]
-- ? if works without network Geolocation (long, lat)
-
 Games:
 - Sudoku
 - Tick-Tack-Toe
