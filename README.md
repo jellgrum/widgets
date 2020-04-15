@@ -62,3 +62,5 @@ API's:
 - Battery Status
 - Web Speech
 - Contacts
+
+[Star in Github for dev](https://evergreen.segment.com/components/corner-dialog/)

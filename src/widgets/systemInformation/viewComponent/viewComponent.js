@@ -1,35 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import map from 'lodash/map'
+import find from 'lodash/find'
+import isEmpty from 'lodash/isEmpty'
 
-import { List } from 'semantic-ui-react'
-import 'semantic-ui-css/components/list.css'
+import { Table, Heading } from 'evergreen-ui'
 
+import { items } from '../common'
 import contents from './contents'
 
 
-export default ({ items }) => {
-  const [contentList, setContentList] = useState(items)
+const EMPTY_TEXT = <Heading>Not selected system information</Heading>
 
-  useEffect(() => {
-    const newContentList = map(items, ({ name, type }) => ({
-      name,
-      content: contents[type],
-    }))
-
-    setContentList(newContentList)
-  }, [items])
+const List = ({ types }) => map(types, (type, index) => {
+  const item = find(items, ['type', type])
 
   return (
-    <List>
-      {map(contentList, ({ name, content }, index) => (
-        <List.Item key={index}>
-          <List.Content floated='right'>
-            {content}
-          </List.Content>
-          <List.Content>{name}</List.Content>
-        </List.Item>
-      ))}
-    </List>
+    <Table.Row key={index}>
+      <Table.TextCell>
+        {item.name}
+      </Table.TextCell>
+
+      <Table.TextCell textAlign="right">
+        {contents[type]}
+      </Table.TextCell>
+
+    </Table.Row>
   )
-}
+})
+
+export default ({ types }) => isEmpty(types) ? EMPTY_TEXT : <List types={types} />

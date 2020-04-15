@@ -1,40 +1,53 @@
 import React, { useCallback, useState } from 'react'
 
 import map from 'lodash/map'
+import filter from 'lodash/filter'
 
-import { Dropdown } from 'semantic-ui-react'
-import 'semantic-ui-css/components/dropdown.css'
+import { SelectMenu, Button } from 'evergreen-ui'
 
-import options from './options'
+import { items } from '../common'
 
 
-const formattedOptions = map(options, value => ({
-  text: value.name,
-  value,
+const formattedOptions = map(items, ({ name, type, disabled }) => ({
+  label: name,
+  value: type,
+  disabled,
 }))
 
 export default ({
   onChange,
-  disabled,
+  initialValues = [],
 }) => {
-  const [value, setValue] = useState([])
+  const [selectedValues, setSelectedValues] = useState(initialValues)
 
-  const handleChange = useCallback((e, { value }) => {
-    onChange(value)
-    setValue(value)
-  }, [onChange])
+  const handleSelect = useCallback(({ value }) => {
+    const newValues = [...selectedValues, value]
+
+    onChange(newValues)
+    setSelectedValues(newValues)
+  }, [selectedValues])
+
+  const handleDeselect = useCallback(({ value }) => {
+    const newValues = filter(selectedValues, selectedValue => selectedValue !== value)
+
+    onChange(newValues)
+    setSelectedValues(newValues)
+  }, [selectedValues])
 
   return (
-    <Dropdown
+    <SelectMenu
+      isMultiSelect
+      hasTitle={false}
       options={formattedOptions}
-      onChange={handleChange}
-      value={value}
-      disabled={disabled}
-      fluid
-      multiple
-      search
-      selection
-      clearable
-    />
+      selected={selectedValues}
+      onSelect={handleSelect}
+      onDeselect={handleDeselect}
+    >
+      <Button>
+        {selectedValues.length > 0
+          ? `${selectedValues.length} selected`
+          : 'Select a system information'}
+      </Button>
+    </SelectMenu>
   )
 }

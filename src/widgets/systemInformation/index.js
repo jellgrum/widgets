@@ -1,6 +1,6 @@
 import ViewComponent from './viewComponent'
 import EditComponent from './editComponent'
-import existBrowserApi from './common'
+import SYSTEM from '../parentTypes'
 
 
 export default {
@@ -8,5 +8,6 @@ export default {
   name: 'System Information',
   ViewComponent,
   EditComponent,
-  isExecutable: existBrowserApi,
+  parent: SYSTEM,
+  isExecutable: true,
 }

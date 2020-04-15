@@ -1,10 +1,6 @@
 import * as TYPES from './types'
-import * as hasApi from './existBrowserApi'
 
 
-export {
-  TYPES,
-  hasApi,
-}
+export { TYPES }
 
-export { default } from './existBrowserApi'
+export { default as items } from './items'
