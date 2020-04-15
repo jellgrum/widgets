@@ -40,6 +40,12 @@ const enabledCookie = {
   disabled: isNil(navigator.cookieEnabled)
 }
 
+const timezone = {
+  name: 'Timezone',
+  type: TYPES.TIMEZONE,
+  disabled: isNil(Intl),
+}
+
 export default [
   browser,
   language,
@@ -47,4 +53,5 @@ export default [
   screenResolution,
   enabledJava,
   enabledCookie,
+  timezone,
 ]

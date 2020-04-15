@@ -71,4 +71,5 @@ export default {
   [TYPES.SCREEN_RESOLUTION]: `${window.screen.width}x${window.screen.height}`,
   [TYPES.JAVA]: navigator.javaEnabled() ? ENABLED : DISABLED,
   [TYPES.COOKIE]: navigator.cookieEnabled ? ENABLED : DISABLED,
+  [TYPES.TIMEZONE]: Intl.DateTimeFormat().resolvedOptions().timeZone,
 }
