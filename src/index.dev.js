@@ -1,16 +1,10 @@
 import React, { useCallback, useState } from 'react'
 import ReactDOM from 'react-dom'
 
-import forEach from  'lodash/forEach'
-
 import { Pane, Card, majorScale } from 'evergreen-ui'
 
-import { registry, widgets } from './widgets'
+import { registry } from './widgets'
 
-
-forEach(widgets, (widget) => {
-  registry.put(widget)
-})
 
 const rowCellStyles = {
   width: '50%',

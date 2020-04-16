@@ -25,14 +25,14 @@ export default ({
 
     onChange(newValues)
     setSelectedValues(newValues)
-  }, [selectedValues])
+  }, [onChange, selectedValues])
 
   const handleDeselect = useCallback(({ value }) => {
     const newValues = filter(selectedValues, selectedValue => selectedValue !== value)
 
     onChange(newValues)
     setSelectedValues(newValues)
-  }, [selectedValues])
+  }, [onChange, selectedValues])
 
   return (
     <SelectMenu
