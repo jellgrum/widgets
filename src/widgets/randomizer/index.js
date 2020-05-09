@@ -1,13 +1,13 @@
 import ViewComponent from './ViewComponent'
 import EditComponent from './EditComponent'
-import { SYSTEM } from '../parentTypes'
+import { OTHER } from '../parentTypes'
 
 
 export default {
-  type: 'SYSTEM_INFORMATION',
-  name: 'System Information',
+  type: 'RANDOMIZER',
+  name: 'Randomizer',
   ViewComponent,
   EditComponent,
-  parent: SYSTEM,
+  parent: OTHER,
   isExecutable: true,
 }

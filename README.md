@@ -31,7 +31,6 @@ Other:
 - Visualize sorts
 - Validator (numbers, string, email, etc)
 - Visualize color by code (hex, rgb(a), hsl, name in browser, mix colors ?, ...)
-- Randomizer (generator)
 - Phase of Moon (addictive information)
 - View metadata of file with zone load
 - Metronom (without audio file (generate in code))
