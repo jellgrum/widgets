@@ -1,7 +1,12 @@
 import React, { useCallback, useState } from 'react'
 import ReactDOM from 'react-dom'
 
-import { Pane, Card, majorScale } from 'evergreen-ui'
+import {
+  majorScale,
+  Pane,
+  Card,
+  Heading,
+} from 'evergreen-ui'
 
 import { registry } from './widgets'
 
@@ -14,29 +19,34 @@ const rowCellStyles = {
 }
 
 const RowWrapper = ({ children }) => {
-  const [EditComponent, ViewComponent] = children
+  const [title, EditComponent, ViewComponent] = children
 
   return (
-    <Pane display="flex">
-      <Card {...rowCellStyles}>
-        {EditComponent}
-      </Card>
+    <Pane marginY={majorScale(3)}>
+      <Heading textAlign="center">{title}</Heading>
+      <Pane display="flex">
+        <Card {...rowCellStyles}>
+          {EditComponent}
+        </Card>
 
-      <Card  {...rowCellStyles}>
-        {ViewComponent}
-      </Card>
+        <Card  {...rowCellStyles}>
+          {ViewComponent}
+        </Card>
+      </Pane>
     </Pane>
   )
 }
 
-const { ViewComponent, EditComponent } = registry.get('SYSTEM_INFORMATION')
 const RowSysInfo = () => {
+  const { ViewComponent, EditComponent } = registry.get('SYSTEM_INFORMATION')
   const [types, setTypes] = useState(['JAVA', 'COOKIE'])
+
   const handleChange = useCallback(setTypes, [types])
 
   return (
     <RowWrapper>
       {[
+        'SYSTEM_INFORMATION',
         <EditComponent
           key='sys-info-edit'
           onChange={handleChange}
@@ -51,10 +61,35 @@ const RowSysInfo = () => {
   )
 }
 
+const RowRandomizer = () => {
+  const { ViewComponent, EditComponent } = registry.get('RANDOMIZER')
+  const [settings, updateSettings] = useState()
+
+  const handleChange = useCallback(updateSettings, [settings])
+
+  return (
+    <RowWrapper>
+      {[
+        'RANDOMIZER',
+        <EditComponent
+          key='randomizer-edit'
+          onChange={handleChange}
+          initialValues={settings}
+        />,
+        <ViewComponent
+          key='randomizer-view'
+          settings={settings}
+        />
+      ]}
+    </RowWrapper>
+  )
+}
+
 const App = () => {
   return (
-    <Pane padding={majorScale(2)}>
+    <Pane paddingX={majorScale(2)}>
       <RowSysInfo />
+      <RowRandomizer />
     </Pane>
   )
 }

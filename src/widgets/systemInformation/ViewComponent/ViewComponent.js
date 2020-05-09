@@ -12,7 +12,7 @@ import contents from './contents'
 
 const EMPTY_TEXT = <Heading>Not selected system information</Heading>
 
-const List = ({ types }) => map(types, (type, index) => {
+const ViewComponent = ({ types }) => map(types, (type, index) => {
   const item = find(items, ['type', type])
 
   return (
@@ -29,4 +29,4 @@ const List = ({ types }) => map(types, (type, index) => {
   )
 })
 
-export default ({ types }) => isEmpty(types) ? EMPTY_TEXT : <List types={types} />
+export default ({ types }) => isEmpty(types) ? EMPTY_TEXT : <ViewComponent types={types} />

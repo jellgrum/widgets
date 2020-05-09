@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react'
 
 import map from 'lodash/map'
 import filter from 'lodash/filter'
+import noop from 'lodash/noop'
 
 import { SelectMenu, Button } from 'evergreen-ui'
 
@@ -15,7 +16,7 @@ const formattedOptions = map(items, ({ name, type, disabled }) => ({
 }))
 
 export default ({
-  onChange,
+  onChange = noop,
   initialValues = [],
 }) => {
   const [selectedValues, setSelectedValues] = useState(initialValues)
