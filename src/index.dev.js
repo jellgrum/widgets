@@ -88,14 +88,14 @@ const RowRandomizer = () => {
 const RowContacts = () => {
   const { ViewComponent, EditComponent, type } = registry.get('CONTACTS')
   const [contacts, updateContacts] = useState(Array(3).fill(null).map((v, index) => ({
-    id: `contact_${Math.random()}`,
+    id: `contact_${index}`,
     name: `name ${index}`,
-    whoIs: `coder ${index}`,
-    PHONE: '89142995066',
-    EMAIL: 'ramazanovkamil@yandex.ru',
-    SKYPE: 'kamil.ramazanov98',
-    FACEBOOK: '13059243id',
-    TELEGRAM: 'jellgrum',
+    whoIs: `whoIs ${index}`,
+    PHONE: '+12345678901',
+    EMAIL: 'email@example.com',
+    SKYPE: 'someSkypeName',
+    FACEBOOK: 'someFacebookName',
+    TELEGRAM: 'someTelegramName',
     WEBSITE: 'https://jellgrum.dev',
   })))
 
