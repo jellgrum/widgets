@@ -1,48 +1,73 @@
-TODO:
+# Widgets
+[React.js](https://reactjs.org/) widget-components
+
+## Usage
+To get all widgets from the registry:
+```
+const allWidgets = registry.getAll()
+```
+
+To get a specific widget from the registry:
+```
+const widget = registry.get([widget type])
+```
+
+Each widget has the same structure:
+```
+{
+    type: string, [widget type],
+    name: string, [widget name],
+    parent: string, [set of widgets of one group],
+    ViewComponent: Component, [component for working with widget (as user mode)],
+    EditComponent: Component, [widget customization component (as admin mode)],
+    isExecutable: boolean, [widget status indicator (useful for defining APIs on a system)],
+}
+```
+## Examples
+Examples of usage of each widget: 
+- [Contacts](./src/widgets/contacts/README.md)
+- [Randomizer](./src/widgets/randomizer/README.md)
+- [System information](./src/widgets/systemInformation/README.md)
+
+## TODO
 
 Organize:
-- Clock (analog/digital)
-- Diagram (list of other types)
+- Clock [analog, digital]
+- Diagram
 - Todo list
 - Calendar
 
 Tools:
-- Calculator (simple/engineer, Javascript, ...)
-- Converter (currency, size, wieght, temp, ...)
-- API Request by url, parameters and headers as JSON Editor, checkboxes [in init app, on widget click, interval]
+- Calculator
+- Converter
+- API Request [url, headers, body, [in init app, interval]]
 
 Games:
 - Sudoku
 - Tick-Tack-Toe
-- Snake ?
+- Snake
 - Match 3
 - Sea Battle
 
 Editor:
 - JSON
-- Markdown with View
-- Regular Expression with highlight
-- Brainfuck (compiler)
-- SVG with View
-- HTML with View
+- Markdown
+- Regular Expression
+- SVG/2d/3d/Graph
 
 Other:
-- Visualize sorts
 - Validator (numbers, string, email, etc)
-- Visualize color by code (hex, rgb(a), hsl, name in browser, mix colors ?, ...)
-- Phase of Moon (addictive information)
-- View metadata of file with zone load
-- Metronom (without audio file (generate in code))
-- Definer credit card with [download image svg/canvas] https://github.com/amarofashion/react-credit-cards
-- Encoder (шифр Цезаря, урлы, Морзе, ...)
-- Kaleidoscope with params [colors, ...]
-- Text difference (like as BitBucket)
-- Pixel draw
-- Constructor for HTML-components (table, iframe)
-- Решатель математических формул https://www.mathjax.org/
-- Получить доминатные цвета изображения
-- Построение графов
-- Родовое дерево
+- Visualize color [hex, rgb(a), hsl, mix colors]
+- Phase of Moon
+- View metadata of file
+- Metronome [generate audio in code]
+- [Definer credit card](https://github.com/amarofashion/react-credit-cards)
+- Encoder [Caesar's code, url, Morse]
+- Text difference [like as BitBucket]
+- Constructor for HTML-components [table, iframe, img, video]
+- [Resolve mathematical formulas](https://www.mathjax.org/)
+- Get dominant color images
+- Graph
 
 API's:
 - Web Share

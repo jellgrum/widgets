@@ -1,1 +1,1 @@
-export { widgets, registry } from './widgets'
+export { default, registry } from './widgets'
