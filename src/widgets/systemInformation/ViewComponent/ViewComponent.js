@@ -24,7 +24,6 @@ const ViewComponent = ({ types }) => map(types, (type, index) => {
       <Table.TextCell textAlign="right">
         {contents[type]}
       </Table.TextCell>
-
     </Table.Row>
   )
 })

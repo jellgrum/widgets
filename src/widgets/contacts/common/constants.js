@@ -1,0 +1,6 @@
+export const PHONE = 'PHONE'
+export const EMAIL = 'EMAIL'
+export const SKYPE = 'SKYPE'
+export const FACEBOOK = 'FACEBOOK'
+export const TELEGRAM = 'TELEGRAM'
+export const WEBSITE = 'WEBSITE'

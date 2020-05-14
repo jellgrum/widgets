@@ -38,7 +38,7 @@ const RowWrapper = ({ children }) => {
 }
 
 const RowSysInfo = () => {
-  const { ViewComponent, EditComponent } = registry.get('SYSTEM_INFORMATION')
+  const { ViewComponent, EditComponent, type } = registry.get('SYSTEM_INFORMATION')
   const [types, setTypes] = useState(['JAVA', 'COOKIE'])
 
   const handleChange = useCallback(setTypes, [types])
@@ -46,7 +46,7 @@ const RowSysInfo = () => {
   return (
     <RowWrapper>
       {[
-        'SYSTEM_INFORMATION',
+        type,
         <EditComponent
           key='sys-info-edit'
           onChange={handleChange}
@@ -62,7 +62,7 @@ const RowSysInfo = () => {
 }
 
 const RowRandomizer = () => {
-  const { ViewComponent, EditComponent } = registry.get('RANDOMIZER')
+  const { ViewComponent, EditComponent, type } = registry.get('RANDOMIZER')
   const [settings, updateSettings] = useState()
 
   const handleChange = useCallback(updateSettings, [settings])
@@ -70,7 +70,7 @@ const RowRandomizer = () => {
   return (
     <RowWrapper>
       {[
-        'RANDOMIZER',
+        type,
         <EditComponent
           key='randomizer-edit'
           onChange={handleChange}
@@ -85,11 +85,46 @@ const RowRandomizer = () => {
   )
 }
 
+const RowContacts = () => {
+  const { ViewComponent, EditComponent, type } = registry.get('CONTACTS')
+  const [contacts, updateContacts] = useState(Array(3).fill(null).map((v, index) => ({
+    id: `contact_${Math.random()}`,
+    name: `name ${index}`,
+    whoIs: `coder ${index}`,
+    PHONE: '89142995066',
+    EMAIL: 'ramazanovkamil@yandex.ru',
+    SKYPE: 'kamil.ramazanov98',
+    FACEBOOK: '13059243id',
+    TELEGRAM: 'jellgrum',
+    WEBSITE: 'https://jellgrum.dev',
+  })))
+
+  const handleChange = useCallback(updateContacts, [contacts])
+
+  return (
+    <RowWrapper>
+      {[
+        type,
+        <EditComponent
+          key='contacts-edit'
+          onChange={handleChange}
+          initialValues={contacts}
+        />,
+        <ViewComponent
+          key='contacts-view'
+          contacts={contacts}
+        />
+      ]}
+    </RowWrapper>
+  )
+}
+
 const App = () => {
   return (
     <Pane paddingX={majorScale(2)}>
       <RowSysInfo />
       <RowRandomizer />
+      <RowContacts />
     </Pane>
   )
 }

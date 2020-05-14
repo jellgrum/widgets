@@ -4,7 +4,6 @@ Organize:
 - Clock (analog/digital)
 - Diagram (list of other types)
 - Todo list
-- Contacts (phone number, skype, telegram, vk, facebook, ...)
 - Calendar
 
 Tools:

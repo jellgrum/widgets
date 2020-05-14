@@ -45,6 +45,7 @@ export default ({
     } else {
       setOptions(extendedOptions)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUnique, type])
 
   return (
