@@ -4,12 +4,16 @@
 ## Usage
 To get all widgets from the registry:
 ```
+import { registry } from 'widgets'
+
 const allWidgets = registry.getAll()
 ```
 
 To get a specific widget from the registry:
 ```
-const widget = registry.get([widget type])
+import { registry } from 'widgets'
+
+const widget = registry.get([widget code])
 ```
 
 Each widget has the same structure:
