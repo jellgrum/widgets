@@ -37,7 +37,7 @@ export default ({
 
   useEffect(() => {
     onChange(initialValues)
-  }, [])
+  })
 
   return (
     <>
