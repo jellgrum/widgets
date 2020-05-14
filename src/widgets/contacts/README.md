@@ -1,9 +1,9 @@
 # Contacts widget
-Store and show list contacts. Contact can be deleted or changed.
+Stores and shows list contacts. Contact can be deleted or changed.
 
 Now there are the following fields:
 - name
-- who is (description contact)
+- who is (description)
 - phone number
 - email
 - Skype (username)
@@ -11,7 +11,7 @@ Now there are the following fields:
 - Telegram (username)
 - website (url)
 
-In view mode, each field, except for the name and description, is a link that opens in a new window
+In view mode, each field, except for the name and description, is a link that opens in a new tab
 
 ## Example 
 ### Setting and view component

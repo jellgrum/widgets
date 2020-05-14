@@ -3,11 +3,11 @@ Randomizer with various settings:
 - count symbols (generated string length)
 - using unique symbols (boolean)
 - character type (letters/numbers)
-- letter case (ignore/lower case/upper case (only used if type = letters))
+- letter case (ignore/lower case/upper case (only used if character type is "letters"))
 
 In viewing mode, there is a function of copying the generated result to the clipboard, if the browser has a copy API
 
-## Example 
+## Example
 ### Setting and view component
 ```js
 const [settings, updateSettings] = useState()
