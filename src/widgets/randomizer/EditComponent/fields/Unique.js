@@ -2,26 +2,23 @@ import React, { useCallback } from 'react'
 
 import noop from 'lodash/noop'
 
-import {
-  Checkbox,
-  majorScale,
-} from 'evergreen-ui'
+import { Checkbox } from 'antd'
 
 
 export default ({
-  onChange = noop,
-  value,
+  handleChangeSetting = noop,
+  isChecked,
 }) => {
   const handleChange = useCallback((evt) => {
-    onChange('isUnique', evt.target.checked)
-  }, [onChange])
+    handleChangeSetting('isUnique', evt.target.checked)
+  }, [handleChangeSetting])
 
   return (
     <Checkbox
-      label="Unique symbols"
-      checked={value}
       onChange={handleChange}
-      marginBottom={majorScale(2)}
-    />
+      checked={isChecked}
+    >
+      Unique symbols
+    </Checkbox>
   )
 }

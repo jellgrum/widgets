@@ -1,73 +1,43 @@
 import React, { useState, useCallback } from 'react'
 
 import {
-  majorScale,
-  Pane,
-  Code,
+  Space,
+  Typography,
   Button,
-} from 'evergreen-ui'
+} from 'antd'
+import { ReloadOutlined } from '@ant-design/icons'
 
-import hasApiCopying from './permissions'
+import { defaultSettings } from '../EditComponent/EditComponent';
 import randomize from './randomize'
 
 
 const INITIAL_TEXT = 'Click the "generate" button'
 
-export default ({ settings }) => {
+export default ({ settings = defaultSettings }) => {
   const [random, setRandom] = useState(INITIAL_TEXT)
-  const [canCopy, setCanCopy] = useState(false)
-  const [isCopied, setIsCopied] = useState(false)
 
   const handleRandomize = useCallback(() => {
     const newRandom = randomize(settings)
 
     setRandom(`${newRandom}`)
-    setIsCopied(false)
-    setCanCopy(true)
   }, [settings])
 
-  const handleCopy = useCallback(async () => {
-    await navigator.clipboard.writeText(random)
-    setIsCopied(true)
-  }, [random])
-
   return (
-    <>
-      <Pane
-        display="flex"
-        marginBottom={majorScale(1)}
+    <Space
+      direction="vertical"
+      style={{ width: '100%' }}
+    >
+      <Typography.Text copyable={random !== INITIAL_TEXT}>
+        {random}
+      </Typography.Text>
+
+      <Button
+        type="primary"
+        icon={<ReloadOutlined />}
+        onClick={handleRandomize}
       >
-        <Code
-          size={500}
-          width="100%"
-          wordBreak="break-all"
-          textAlign="center"
-        >
-          {random}
-        </Code>
-      </Pane>
-
-      <Pane display="flex">
-        <Button
-          width={hasApiCopying ? '50%' : '100%'}
-          marginRight={majorScale(1)}
-          onClick={handleRandomize}
-          iconBefore="refresh"
-        >
-          generate
-        </Button>
-
-        {hasApiCopying && (
-          <Button
-            width="50%"
-            onClick={handleCopy}
-            iconBefore="add"
-            disabled={!canCopy || !hasApiCopying}
-          >
-            copy {isCopied && '(copied to clipboard)'}
-          </Button>
-        )}
-      </Pane>
-    </>
+        generate
+      </Button>
+    </Space>
   )
 }

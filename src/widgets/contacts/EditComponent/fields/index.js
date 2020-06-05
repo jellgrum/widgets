@@ -1,2 +1,2 @@
-export { default as ContactsList } from './ContactsList'
-export { default as Form } from './Form'
+export { default as FormSettings } from './FormSettings'
+export { default as SearchSettings } from './SearchSettings'

@@ -1,5 +1,5 @@
 # Widgets
-[React.js](https://reactjs.org/) widget-components
+[React.js](https://reactjs.org/) widget-components based on Antd framework
 
 ## Usage
 To get all widgets from the registry:
@@ -83,5 +83,3 @@ API's:
 - Web Speech
 - Contacts
 - Intl
-
-[Star in Github for dev](https://evergreen.segment.com/components/corner-dialog/)

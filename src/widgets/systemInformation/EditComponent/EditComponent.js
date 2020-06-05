@@ -1,10 +1,9 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 
 import map from 'lodash/map'
-import filter from 'lodash/filter'
 import noop from 'lodash/noop'
 
-import { SelectMenu, Button } from 'evergreen-ui'
+import { Select, Space } from 'antd'
 
 import { items } from '../common'
 
@@ -16,39 +15,22 @@ const formattedOptions = map(items, ({ name, type, disabled }) => ({
 }))
 
 export default ({
-  onChange = noop,
-  initialValues = [],
-}) => {
-  const [selectedValues, setSelectedValues] = useState(initialValues)
-
-  const handleSelect = useCallback(({ value }) => {
-    const newValues = [...selectedValues, value]
-
-    onChange(newValues)
-    setSelectedValues(newValues)
-  }, [onChange, selectedValues])
-
-  const handleDeselect = useCallback(({ value }) => {
-    const newValues = filter(selectedValues, selectedValue => selectedValue !== value)
-
-    onChange(newValues)
-    setSelectedValues(newValues)
-  }, [onChange, selectedValues])
-
-  return (
-    <SelectMenu
-      isMultiSelect
-      hasTitle={false}
+  handleChange = noop,
+  types = [],
+}) => (
+  <Space
+    direction="vertical"
+    style={{ width: '100%' }}
+  >
+    <label htmlFor="system-information">Select system information</label>
+    <Select
+      id="system-information"
+      mode="multiple"
+      onChange={handleChange}
+      value={types}
       options={formattedOptions}
-      selected={selectedValues}
-      onSelect={handleSelect}
-      onDeselect={handleDeselect}
-    >
-      <Button>
-        {selectedValues.length > 0
-          ? `${selectedValues.length} selected`
-          : 'Select a system information'}
-      </Button>
-    </SelectMenu>
-  )
-}
+      style={{ width: '100%' }}
+      showArrow
+    />
+  </Space>
+)

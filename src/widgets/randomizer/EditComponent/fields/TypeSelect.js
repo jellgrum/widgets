@@ -4,10 +4,7 @@ import noop from 'lodash/noop'
 import map from 'lodash/map'
 import lowerCase from 'lodash/lowerCase'
 
-import {
-  FormField,
-  SegmentedControl,
-} from 'evergreen-ui'
+import { Radio, Space } from 'antd'
 
 import {
   TYPE_NUMERALS,
@@ -16,24 +13,34 @@ import {
 
 
 const values = [TYPE_NUMERALS, TYPE_LETTERS]
-const options = map(values, value => ({ value, label: lowerCase(value) }))
 
 export default ({
-  onChange = noop,
-  value,
+  handleChangeSetting = noop,
+  type,
 }) => {
-  const handleChange = useCallback((value) => {
-    onChange('type', value)
-  }, [onChange])
+  const handleChange = useCallback((evt) => {
+    handleChangeSetting('type', evt.target.value)
+  }, [handleChangeSetting])
 
   return (
-    <FormField label="Type symbols">
-      <SegmentedControl
-        name="switch"
-        options={options}
-        value={value}
+    <Space
+      direction="vertical"
+      style={{ width: '100%' }}
+    >
+      <label>Type symbols</label>
+      <Radio.Group
         onChange={handleChange}
-      />
-    </FormField>
+        value={type}
+      >
+        {map(values, (value, index) => (
+          <Radio.Button
+            key={index}
+            value={value}
+          >
+            {lowerCase(value)}
+          </Radio.Button>
+        ))}
+      </Radio.Group>
+    </Space>
   )
 }

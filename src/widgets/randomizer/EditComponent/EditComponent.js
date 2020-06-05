@@ -1,6 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import noop from 'lodash/noop'
+import isEmpty from 'lodash/isEmpty'
+
+import { Space } from 'antd'
 
 import {
   CountSymbols,
@@ -13,10 +16,10 @@ import {
   TYPE_LETTERS,
   TYPE_NUMERALS,
   LETTER_CASE_IGNORE,
-} from '../common/constants';
+} from '../common/constants'
 
 
-const defaultValues = {
+export const defaultSettings = {
   countSymbols: COUNT_SYMBOLS_MIN,
   type: TYPE_NUMERALS,
   isUnique: false,
@@ -24,45 +27,46 @@ const defaultValues = {
 }
 
 export default ({
-  onChange = noop,
-  initialValues = defaultValues,
+  handleChange = noop,
+  settings = {},
 }) => {
-  const [settings, setSettings] = useState(initialValues)
+  const updatedSettings = isEmpty(settings) ? defaultSettings : settings
 
-  const handleChange = useCallback((setting, value) => {
-    const newSettings = { ...settings, [setting]: value }
-    onChange(newSettings)
-    setSettings(newSettings)
-  }, [onChange, settings])
+  const handleChangeSettings = useCallback((setting, value) => {
+    handleChange({ ...updatedSettings, [setting]: value })
+  }, [handleChange, updatedSettings])
 
   useEffect(() => {
-    onChange(initialValues)
+    handleChange(updatedSettings)
   })
 
   return (
-    <>
+    <Space
+      direction="vertical"
+      size="middle"
+      style={{ width: '100%' }}
+    >
       <CountSymbols
-        onChange={handleChange}
-        value={settings.countSymbols}
-        settings={settings}
+        handleChangeSetting={handleChangeSettings}
+        settings={updatedSettings}
       />
 
       <Unique
-        onChange={handleChange}
-        value={settings.isUnique}
+        handleChangeSetting={handleChangeSettings}
+        isChecked={updatedSettings.isUnique}
       />
 
       <TypeSelect
-        onChange={handleChange}
-        value={settings.type}
+        handleChangeSetting={handleChangeSettings}
+        type={updatedSettings.type}
       />
 
-      {settings.type === TYPE_LETTERS && (
+      {updatedSettings.type === TYPE_LETTERS && (
         <LetterCaseSelect
-          onChange={handleChange}
-          value={settings.letterCase}
+          handleChangeSetting={handleChangeSettings}
+          letterCase={updatedSettings.letterCase}
         />
       )}
-    </>
+    </Space>
   )
 }
