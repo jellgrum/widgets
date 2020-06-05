@@ -1,13 +1,9 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import noop from 'lodash/noop'
 import map from 'lodash/map'
 
-import {
-  majorScale,
-  FormField,
-  SegmentedControl,
-} from 'evergreen-ui'
+import { Radio, Space } from 'antd'
 
 import {
   COUNT_SYMBOLS_MIN,
@@ -17,48 +13,54 @@ import {
 
 
 const baseValues = [COUNT_SYMBOLS_MIN, 6, 8, 10]
-const baseOptions = map(baseValues, value => ({ value, label: value }))
-
 const extendedValues = [...baseValues, 12, COUNT_SYMBOLS_MAX]
-const extendedOptions = map(extendedValues, value => ({ value, label: value }))
 
 const shouldUseBase = (isUnique, type) => isUnique && type === TYPE_NUMERALS
 
 export default ({
-  onChange = noop,
-  value,
+  handleChangeSetting = noop,
   settings: {
-    type,
+    countSymbols,
     isUnique,
+    type,
   },
 }) => {
-  const [options, setOptions] = useState(shouldUseBase(isUnique, type)  ? baseOptions : extendedOptions)
+  const [options, setOptions] = useState(shouldUseBase(isUnique, type)  ? baseValues : extendedValues)
 
-  const handleChange = useCallback((value) => {
-    onChange('countSymbols', value)
-  }, [onChange])
+  const handleChange = useCallback((evt) => {
+    handleChangeSetting('countSymbols', evt.target.value)
+  }, [handleChangeSetting])
 
   useEffect(() => {
     if (shouldUseBase(isUnique, type)) {
-      onChange('countSymbols', COUNT_SYMBOLS_MIN)
-      setOptions(baseOptions)
+      handleChangeSetting('countSymbols', COUNT_SYMBOLS_MIN)
+      setOptions(baseValues)
     } else {
-      setOptions(extendedOptions)
+      setOptions(extendedValues)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUnique, type])
 
   return (
-    <FormField
-      label="Count symbols"
-      marginBottom={majorScale(2)}
+    <Space
+      direction="vertical"
+      style={{ width: '100%' }}
     >
-      <SegmentedControl
-        name="switch"
-        options={options}
-        value={value}
+      <label>Count symbols</label>
+      <Radio.Group
         onChange={handleChange}
-      />
-    </FormField>
+        value={countSymbols}
+      >
+        {map(options, (option, index) => (
+          <Radio.Button
+            key={index}
+            value={option}
+          >
+            {option}
+          </Radio.Button>
+        ))}
+      </Radio.Group>
+    </Space>
   )
 }
+

@@ -1,84 +1,59 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import noop from 'lodash/noop'
-import filter from 'lodash/filter'
-import find from 'lodash/find'
-import map from 'lodash/map'
-import isNull from 'lodash/isNull'
-import reduce from 'lodash/reduce'
 import isEmpty from 'lodash/isEmpty'
-import trim from 'lodash/trim'
+import isString from 'lodash/isString'
 
+import { Space } from 'antd'
+
+import { defaultSettings } from '../common/settings'
 import {
-  Form,
-  ContactsList,
+  FormSettings,
+  SearchSettings,
 } from './fields'
 
 
-const getUniqueId = () => `contact_${+new Date()}`
-
 export default ({
-  onChange = noop,
-  initialValues = [],
+  handleChange = noop,
+  settings = {},
 }) => {
-  const [contacts, updateContacts] = useState(initialValues)
-  const [currentContact, updateCurrentContact] = useState(undefined)
+  const updatedSettings = isEmpty(settings) ? defaultSettings : settings
 
-  const handleUpdateCurrentContact = useCallback((name, value) => {
-    updateCurrentContact(isNull(name) ? undefined : { ...currentContact, [name]: value })
-  }, [currentContact])
-
-  const handleEdit = useCallback((id) => {
-    const foundContact = find(contacts, ['id', id])
-
-    updateCurrentContact(foundContact)
-  }, [currentContact, contacts])
-
-  const handleDelete = useCallback((id) => {
-    const newContacts = filter(contacts, contact => contact.id !== id)
-
-    updateContacts(newContacts)
-    onChange(newContacts)
-  }, [contacts, onChange])
-
-  const handleSubmit = useCallback(() => {
-    const updatedCurrentContact = reduce(currentContact, (memo, value, name) => {
-      if (!isEmpty(trim(value))) {
-        memo[name] = value
-      }
-      return memo
-    }, {})
-    let newContacts
-
-    if (updatedCurrentContact.id) {
-      newContacts = map(contacts, contact => contact.id === updatedCurrentContact.id
-        ? updatedCurrentContact
-        : contact)
-    } else {
-      newContacts = [...contacts, {
-        ...updatedCurrentContact,
-        id: getUniqueId(),
-      }]
+  const handleChangeSettings = useCallback((path, setting, value) => {
+    const hasPath = isString(path)
+    const newSettings = {
+      ...updatedSettings,
+      [hasPath ? path : setting]: hasPath
+        ? {
+          ...updatedSettings[path],
+          [setting]: value,
+        }
+        : value,
     }
 
-    onChange(newContacts)
-    updateContacts(newContacts)
-    updateCurrentContact(undefined)
-  }, [onChange, contacts, currentContact])
+    handleChange(newSettings)
+  }, [handleChange, updatedSettings])
+
+  useEffect(() => {
+    handleChange(updatedSettings)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
-    <>
-      <Form
-        currentContact={currentContact}
-        handleChangeContact={handleUpdateCurrentContact}
-        handleSubmit={handleSubmit}
+    <Space
+      direction="vertical"
+      size="middle"
+      style={{ width: '100%' }}
+    >
+      <FormSettings
+        handleChangeSetting={handleChangeSettings}
+        fields={updatedSettings.formFields}
       />
 
-      <ContactsList
-        contacts={contacts}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
+      <SearchSettings
+        handleChangeSetting={handleChangeSettings}
+        searchSettings={updatedSettings.search}
       />
-    </>
+    </Space>
   )
 }

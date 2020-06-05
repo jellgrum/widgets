@@ -1,56 +1,47 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 import {
-  majorScale,
-  Pane,
-  Card,
-  Heading,
-} from 'evergreen-ui'
+  Divider,
+  Row,
+  Col,
+} from 'antd'
+import 'antd/dist/antd.css'
 
 import { registry } from './widgets'
 
-
-const rowCellStyles = {
-  width: '50%',
-  padding: majorScale(1),
-  margin: majorScale(1),
-  background: 'tint2',
-}
 
 const RowWrapper = ({ children }) => {
   const [title, EditComponent, ViewComponent] = children
 
   return (
-    <Pane marginY={majorScale(3)}>
-      <Heading textAlign="center">{title}</Heading>
-      <Pane display="flex">
-        <Card {...rowCellStyles}>
-          {EditComponent}
-        </Card>
+    <>
+      <Divider>{title}</Divider>
 
-        <Card  {...rowCellStyles}>
+      <Row gutter={24}>
+        <Col span={12}>
+          {EditComponent}
+        </Col>
+        <Col span={12}>
           {ViewComponent}
-        </Card>
-      </Pane>
-    </Pane>
+        </Col>
+      </Row>
+    </>
   )
 }
 
 const RowSysInfo = () => {
-  const { ViewComponent, EditComponent, type } = registry.get('SYSTEM_INFORMATION')
-  const [types, setTypes] = useState(['JAVA', 'COOKIE'])
-
-  const handleChange = useCallback(setTypes, [types])
+  const { ViewComponent, EditComponent, name } = registry.get('SYSTEM_INFORMATION')
+  const [types, setTypes] = useState([])
 
   return (
     <RowWrapper>
       {[
-        type,
+        name,
         <EditComponent
           key='sys-info-edit'
-          onChange={handleChange}
-          initialValues={types}
+          handleChange={setTypes}
+          types={types}
         />,
         <ViewComponent
           key='sys-info-view'
@@ -62,19 +53,17 @@ const RowSysInfo = () => {
 }
 
 const RowRandomizer = () => {
-  const { ViewComponent, EditComponent, type } = registry.get('RANDOMIZER')
-  const [settings, updateSettings] = useState()
-
-  const handleChange = useCallback(updateSettings, [settings])
+  const { ViewComponent, EditComponent, name } = registry.get('RANDOMIZER')
+  const [settings, updateSettings] = useState({})
 
   return (
     <RowWrapper>
       {[
-        type,
+        name,
         <EditComponent
           key='randomizer-edit'
-          onChange={handleChange}
-          initialValues={settings}
+          handleChange={updateSettings}
+          settings={settings}
         />,
         <ViewComponent
           key='randomizer-view'
@@ -86,47 +75,34 @@ const RowRandomizer = () => {
 }
 
 const RowContacts = () => {
-  const { ViewComponent, EditComponent, type } = registry.get('CONTACTS')
-  const [contacts, updateContacts] = useState(Array(3).fill(null).map((v, index) => ({
-    id: `contact_${index}`,
-    name: `name ${index}`,
-    whoIs: `whoIs ${index}`,
-    PHONE: '+12345678901',
-    EMAIL: 'email@example.com',
-    SKYPE: 'someSkypeName',
-    FACEBOOK: 'someFacebookName',
-    TELEGRAM: 'someTelegramName',
-    WEBSITE: 'https://jellgrum.dev',
-  })))
-
-  const handleChange = useCallback(updateContacts, [contacts])
+  const { ViewComponent, EditComponent, name } = registry.get('CONTACTS')
+  const [settings, updateSettings] = useState({})
 
   return (
     <RowWrapper>
       {[
-        type,
+        name,
         <EditComponent
           key='contacts-edit'
-          onChange={handleChange}
-          initialValues={contacts}
+          handleChange={updateSettings}
+          settings={settings}
         />,
         <ViewComponent
           key='contacts-view'
-          contacts={contacts}
+          settings={settings}
+          extraContacts={[]}
         />
       ]}
     </RowWrapper>
   )
 }
 
-const App = () => {
-  return (
-    <Pane paddingX={majorScale(2)}>
-      <RowSysInfo />
-      <RowRandomizer />
-      <RowContacts />
-    </Pane>
-  )
-}
+const App = () => (
+  <div style={{ margin: 12 }}>
+    <RowSysInfo />
+    <RowRandomizer />
+    <RowContacts />
+  </div>
+)
 
 ReactDOM.render(<App />, document.getElementById('root'))
