@@ -1,9 +1,8 @@
 # Contacts widget
-Stores and shows list contacts. Contact can be deleted or changed.
-
-Now there are the following fields:
+Stores and shows list contacts.
+This widget has available fields:
 - name
-- who is (description)
+- description
 - phone number
 - email
 - Skype (username)
@@ -11,22 +10,33 @@ Now there are the following fields:
 - Telegram (username)
 - website (url)
 
-In view mode, each field, except for the name and description, is a link that opens in a new tab
+Now there are in view mode the following features:
+- search contacts in list by fields (has setting)
+- delete/change contact data
+- each field, except for the name and description, is a link that opens in a new tab
+- ability to transfer the default contact list
+
+Now there are in settings mode the following features:
+- select visible field (name is the required field)
+- show/hide search input
+- case-sensitive of search input
+- select fields that using in search input (name is the required field)
 
 ## Example 
 ### Setting and view component
 ```js
-const [contacts, updateContacts] = useState([])
-
-const handleChange = useCallback(updateContacts, [contacts])
+const [settings, updateSettings] = useState({})
 
 return (
-    <>
-        <EditComponent
-            onChange={handleChange}
-            initialValues={contacts}
-        />
-        <ViewComponent contacts={contacts} />
-    </>
+<>
+    <EditComponent
+        handleChange={updateSettings}
+        settings={settings}
+    />
+    <ViewComponent
+        settings={settings}
+        extraContacts={[]}
+    />
+</>
 )
 ```
